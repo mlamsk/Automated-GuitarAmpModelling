@@ -93,7 +93,10 @@ def main(args):
     # Load dataset
     dataset = CAMLdataset.DataSet(data_dir='Data')
 
-    dataset.create_subset('train', frame_len=22050)
+    # This frame length is the number of samples in one segment...
+    # this is actually the "batch_size". 
+    # args.batch_size is trully the number of frames that are processed. 
+    dataset.create_subset('train', frame_len=88200)
     dataset.load_file(os.path.join('train', args.file_name), 'train')
 
     dataset.create_subset('val')

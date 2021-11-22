@@ -132,6 +132,35 @@ def nonConditionedWavParse(args):
     save_wav(args.path + "/val/" + args.name + "-input.wav", in_val)
     save_wav(args.path + "/val/" + args.name + "-target.wav", out_val)
 
+def nonConditionedWithValidationWavParse(args):
+    print(args.validation)
+    # Load and Preprocess Data ###########################################
+    in_rate, in_data = wavfile.read(args.validation[0])
+    out_rate, out_data = wavfile.read(args.validation[1])
+    in_train = in_data.astype(np.float32).flatten()
+    out_train = out_data.astype(np.float32).flatten()
+
+    in_rate, in_data = wavfile.read(args.validation[2])
+    out_rate, out_data = wavfile.read(args.validation[3])
+    in_val = in_data.astype(np.float32).flatten()
+    out_val = out_data.astype(np.float32).flatten()
+
+    in_rate, in_data = wavfile.read(args.validation[4])
+    out_rate, out_data = wavfile.read(args.validation[5])
+    in_test = in_data.astype(np.float32).flatten()
+    out_test= out_data.astype(np.float32).flatten()
+
+
+    save_wav(args.path + "/train/" + args.name + "-input.wav", in_train)
+    save_wav(args.path + "/train/" + args.name + "-target.wav", out_train)
+
+    save_wav(args.path + "/test/" + args.name + "-input.wav", in_test)
+    save_wav(args.path + "/test/" + args.name + "-target.wav", out_test)
+
+    save_wav(args.path + "/val/" + args.name + "-input.wav", in_val)
+    save_wav(args.path + "/val/" + args.name + "-target.wav", out_val)
+
+
 
 def conditionedWavParse(args):
     '''
@@ -261,6 +290,7 @@ if __name__ == "__main__":
     # parser.add_argument("--test_in_file", "-tin", type=str, default=None)
     # parser.add_argument("--test_out_file", "-tout", type=str, default=None)
     parser.add_argument("--snapshot", "-s", nargs="+", help="Snapshot configuration. TRAINING_IN TRAINING_OUT OPTIONAL_TEST_IN OPTIONAL_TEST_OUT")
+    parser.add_argument("--validation", "-v", nargs="+", help="Snapshot configuration with separate validation data")
     parser.add_argument("--normalize", "-n", type=bool, default=False)
     parser.add_argument("--parameterize", "-p", type=str, default=None)
     parser.add_argument("--mod_split", '-ms', default=5, help="The default splitting mechanism. Splits the training and validation data on a 5 mod (or 20 percent).")
@@ -272,7 +302,9 @@ if __name__ == "__main__":
     if args.parameterize:
         print("Parameterized Data")
         conditionedWavParse(args)
-
+    elif (args.validation):
+        print("Non-Parameterized Data With Distinct Validation")
+        nonConditionedWithValidationWavParse(args)
     else:
         print("Non-Parameterized Data")
         nonConditionedWavParse(args)
