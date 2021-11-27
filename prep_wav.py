@@ -24,8 +24,8 @@ def sliceOnMod(input_data, target_data, mod):
     mod = int(mod)
 
     # Split the data into 100 pieces
-    input_split = np.array_split(input_data, 100)
-    target_split = np.array_split(target_data, 100)
+    input_split = np.array_split(input_data, 150)
+    target_split = np.array_split(target_data, 150)
 
     val_input_data = []
     val_target_data = []

@@ -221,7 +221,7 @@ if __name__ == "__main__":
                       , default='RNN3')
     prsr.add_argument('--config_location', '-cl', default='Configs', help='Location of the "Configs" directory')
     prsr.add_argument('--save_location', '-sloc', default='Results', help='Directory where trained models will be saved')
-    prsr.add_argument('--load_model', '-lm', default=True, help='load a pretrained model if it is found')
+    prsr.add_argument('--load_model', '-lm', default=1, type=int, help='load a pretrained model if it is found')
     prsr.add_argument('--seed', default=None, type=int, help='seed all of the random number generators if desired')
 
     # pre-processing of the training/val/test data
@@ -269,7 +269,7 @@ if __name__ == "__main__":
     prsr.add_argument('--num_blocks', '-nb', default=1, type=int, help='Number of recurrent blocks')
     prsr.add_argument('--hidden_size', '-hs', default=16, type=int, help='Recurrent unit hidden state size')
     prsr.add_argument('--unit_type', '-ut', default='LSTM', help='LSTM or GRU or RNN')
-    prsr.add_argument('--skip_con', '-sc', default=1, help='is there a skip connection for the input to the output')
+    prsr.add_argument('--skip_con', '-sc', default=1, type=int, help='is there a skip connection for the input to the output')
 
     args = prsr.parse_args()
 
